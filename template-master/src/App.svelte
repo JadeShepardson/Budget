@@ -2,22 +2,27 @@
 	class Budget {
 		//completed boolean
 		//text string
-		constructor(name) {
+		constructor(name, value, weight) {
 			this.text = name;
+			this.number = value;
+			this.cost = weight;
 		}
 	}
 	let budgets = [
-		new Budget("Do Dishes"),
-		new Budget("Dig Potatoes"),
-		new Budget("Work at Job Factory")
+		new Budget("Rent", 0, 0),
+		new Budget("Food", 0, 0),
+		new Budget("Utilities", 0, 0)
 	]
 	const add_budget = () => {
-		budgets = budgets.concat([new Budget("New Task")])
+		budgets = budgets.concat([new Budget("New Task", 0, 0)])
 	}
 	const delete_budget = (item_to_delete) => {
 		if(confirm("Delete " + item_to_delete + "?")) {
 			budgets = budgets.filter((budget) => budget !== item_to_delete)
 		}
+	}
+	const calculate_budget = () => {
+
 	}
 </script>
 
@@ -57,11 +62,23 @@
 		width: 500px;
 		display: grid;
 		grid-template:
-			"textfield button"
-			/1fr auto
+			"item value weight del_button"
+			/2fr 1fr 1fr auto
 		;
 		column-gap: 10px;
 	}	 
+	[id=item] {
+		grid-area: item;
+	}
+	[id=value] {
+		grid-area: value;
+	}
+	[id=weight] {
+		grid-area: weight;
+	}
+	[id=del_button] {
+		grid-area: del_button;
+	}
 	button {
 		border: 1px solid black;
 		border-radius: 5px;
@@ -86,11 +103,14 @@
 		{#each budgets as budget}
 
 		<budget-item class="{budget.completed ? 'completed' : ''}">
-			<input type = "text" bind:value={budget.text}/>
-			<button ont:click={() => delete_budget(budget)}>X</button>
+			<div id="item"><span>Item:</span><input type = "text" bind:value={budget.text}/></div>
+			<div id="value"><span>Value: </span><input type = "number" min="0" max="10" bind:value={budget.number}/></div>
+			<div id="weight"><span>Weight: </span><input type = "number" min="0" bind:value={budget.cost}/></div>
+			<div id="del_button"><button ont:click={() => delete_budget(budget)}>X</button></div>
 		</budget-item>
 		{/each}
 		<button on-click={add_budget()}>Add Item</button>
+		<button on-click={calculate_budget()}>Submit</button>
 	</div>
 	
 	<div id="output">
