@@ -1,29 +1,33 @@
 <script>
 	class Budget {
-		//completed boolean
-		//text string
 		constructor(name, value, weight) {
 			this.name = name;
 			this.val = value;
 			this.weight = weight;
-		}
-	}
+		} //budget constructor
+	}//budget class
 	let budgets = [
 		new Budget("Rent", 0, 0),
 		new Budget("Food", 0, 0),
 		new Budget("Utilities", 0, 0)
-	]
-	const add_budget = () => {
+	] //budgets list
+	const add_budget = () => { //adds new budget item to budgets list
 		budgets = budgets.concat([new Budget("Item", 0, 0)])
-	}
-	const delete_budget = (item_to_delete) => {
-		if(confirm("Delete " + item_to_delete + "?")) {
-			budgets = budgets.filter((budget) => budget !== item_to_delete)
-		}
-	}
-	const calculate_budget = () => {
+	} //add_budget
+	const delete_budget = (item_to_delete) => { //deletes a selected budget from budgets list
+		budgets = budgets.filter((budget) => budget !== item_to_delete)
+	} //delete_budget
+	const calculate_budget = () => { //calculates what can fit in one's budget
+		total_budget = document.getElementById('total')
+		sort_budget
 
-	}
+	} //calculate_budget
+	const sort_budget = () => {
+		//using quicksort algorithm for the running time and the storage costs
+	} //sort_budget
+	const partition = () => {
+		//partition for the quicksort (sort_budget) algorithm
+	} //partition
 </script>
 
 <style>
@@ -32,10 +36,10 @@
     	height: 100%;
 		display: grid;
 		grid-template:
-	    	"header header" 65px
-        	"info info"
-	    	"input output"
-	    	"footer footer" 50px
+	    	"header header" auto
+        	"info info" auto
+	    	"input output" 1fr
+	    	"footer footer" auto
         	/1fr 1fr
 	}
 	header {
@@ -46,15 +50,25 @@
 	}
 	[id=input] {
 		grid-area: input;
-		padding-right: 10px;
+		padding: 10px;
+		border: 5px solid black;
+		border-radius: 5px;
 	}
 	[id=output] {
 		grid-area: output;
+		text-align: center;
+		border: 5px solid black;
+		padding: 10px;
+		border-radius: 5px;
 	}
 	footer {
 		grid-area: footer; 
 	}
+	[id=totalBudget] {
+		text-align: center;
+	}
 	budget-item {
+		margin: auto;
 		border: 1px solid black;
 		padding: 10px;
 		border-radius: 5px;
@@ -84,6 +98,10 @@
 		border-radius: 5px;
 		font-weight: bold;
 	}
+	[id=buttons] {
+		display: flex;
+		justify-content: center;
+	}
 </style>
 <body>
 	<header>
@@ -101,27 +119,31 @@
 	</div>
 	
 	<div id = "input">
-		<div id="totalBudget"><span>Total Budget:</span><input type = "number" min="0"/></div>
+		<div id="totalBudget"><span>Total Budget:</span><input type = "number" min="0" id="total"/></div>
 		<br>
 		{#each budgets as budget}
-
-		<budget-item>
+			<budget-item>
 			<div id="item"><span>Item:</span><input type = "text" bind:value={budget.name}/></div>
 			<div id="value"><span>Value: </span><input type = "number" min="0" max="10" bind:value={budget.val}/></div>
 			<div id="weight"><span>Weight: </span><input type = "number" min="0" bind:value={budget.weight}/></div>
 			<div id="del_button"><button on:click={() => delete_budget(budget)}>X</button></div>
 		</budget-item>
 		{/each}
-		<button on:click={add_budget}>Add Item</button>
-		<button on:click={calculate_budget}>Submit</button>
+		<br>
+		<div id="buttons">
+			<button on:click={add_budget}>Add Item</button>
+			<button on:click={calculate_budget}>Submit</button>
+		</div>
 	</div>
 	
 	<div id="output">
-		<p>output</p>
-		<p>How do i want to do this in order to make this as fast as possible??? I can make it so that the items are immediately put into an array. This array is then sorted via sorting algorithm (heap sort or meergesort or quicksort) by weight and value (value being how necessary and weight being how much). Algorithm then goes through and puts items in the "knapsack" accordingly. Ta-da! Not best solution but a solution all the same. </p>
+		<!--<p>output</p>
+		<p>How do i want to do this in order to make this as fast as possible??? I can make it so that the items are immediately put into an array. This array is then sorted via sorting algorithm (heap sort or meergesort or quicksort) by weight and value (value being how necessary and weight being how much). Algorithm then goes through and puts items in the "knapsack" accordingly. Ta-da! Not best solution but a solution all the same. </p>-->
+		
 	</div>
 	
 	<footer>
-		<p>Copyright and privacy blah blah blah</p>
+		<p>Copyright © 2021 Jade Shepardson</p>
+		<p>Privacy - Easy Budget retains none of your budgeting info so your information is safe and sound.</p>
 	</footer>
 </body>
