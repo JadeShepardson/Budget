@@ -65,15 +65,15 @@
 	[id=input] {
 		grid-area: input;
 		padding: 10px;
-		border: 5px solid black;
-		border-radius: 5px;
+		/*border: 5px solid black;
+		border-radius: 5px;*/
 	}
 	[id=output] {
 		grid-area: output;
 		text-align: center;
-		border: 5px solid black;
+		/*border: 5px solid black;
+		border-radius: 5px;*/
 		padding: 10px;
-		border-radius: 5px;
 	}
 	footer {
 		grid-area: footer; 
