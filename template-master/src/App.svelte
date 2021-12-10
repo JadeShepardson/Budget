@@ -18,9 +18,10 @@
 		budgets = budgets.filter((budget) => budget !== item_to_delete)
 	} //delete_budget
 	const calculate_budget = () => { //calculates what can fit in one's budget
-		total_budget = document.getElementById('total')
+		var total_budget = document.getElementById('total').value;
+		//document.getElementById("output").innerHTML = total_budget; //test code
 		sort_budget
-
+		
 	} //calculate_budget
 	const sort_budget = () => {
 		//using quicksort algorithm for the running time and the storage costs
@@ -139,7 +140,7 @@
 	<div id="output">
 		<!--<p>output</p>
 		<p>How do i want to do this in order to make this as fast as possible??? I can make it so that the items are immediately put into an array. This array is then sorted via sorting algorithm (heap sort or meergesort or quicksort) by weight and value (value being how necessary and weight being how much). Algorithm then goes through and puts items in the "knapsack" accordingly. Ta-da! Not best solution but a solution all the same. </p>-->
-		
+
 	</div>
 	
 	<footer>
