@@ -21,7 +21,7 @@
 		var total_budget = document.getElementById('total').value;
 		//document.getElementById("output").innerHTML = total_budget; //test code
 		sort_budget
-		
+
 	} //calculate_budget
 	const sort_budget = () => {
 		//using quicksort algorithm for the running time and the storage costs
@@ -33,7 +33,8 @@
 
 <style>
 	body {
-    	background-color: lightsteelblue;
+    	background-color: #00A86B; /*jade green :)*/
+		color: white;
     	height: 100%;
 		display: grid;
 		grid-template:
@@ -42,6 +43,18 @@
 	    	"input output" 1fr
 	    	"footer footer" auto
         	/1fr 1fr
+	}
+	p {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	h1 {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	h3 {
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 	header {
 		grid-area: header;
@@ -104,6 +117,7 @@
 		justify-content: center;
 	}
 </style>
+
 <body>
 	<header>
 		<h1>Easy Budget</h1>
@@ -124,11 +138,11 @@
 		<br>
 		{#each budgets as budget}
 			<budget-item>
-			<div id="item"><span>Item:</span><input type = "text" bind:value={budget.name}/></div>
-			<div id="value"><span>Value: </span><input type = "number" min="0" max="10" bind:value={budget.val}/></div>
-			<div id="weight"><span>Weight: </span><input type = "number" min="0" bind:value={budget.weight}/></div>
-			<div id="del_button"><button on:click={() => delete_budget(budget)}>X</button></div>
-		</budget-item>
+				<div id="item"><span>Item:</span><input type = "text" bind:value={budget.name}/></div>
+				<div id="value"><span>Value: </span><input type = "number" min="0" max="10" bind:value={budget.val}/></div>
+				<div id="weight"><span>Weight: </span><input type = "number" min="0" bind:value={budget.weight}/></div>
+				<div id="del_button"><button on:click={() => delete_budget(budget)}>X</button></div>
+			</budget-item>
 		{/each}
 		<br>
 		<div id="buttons">
@@ -142,7 +156,7 @@
 		<p>How do i want to do this in order to make this as fast as possible??? I can make it so that the items are immediately put into an array. This array is then sorted via sorting algorithm (heap sort or meergesort or quicksort) by weight and value (value being how necessary and weight being how much). Algorithm then goes through and puts items in the "knapsack" accordingly. Ta-da! Not best solution but a solution all the same. </p>-->
 
 	</div>
-	
+
 	<footer>
 		<p>Copyright © 2021 Jade Shepardson</p>
 		<p>Privacy - Easy Budget retains none of your budgeting info so your information is safe and sound.</p>
