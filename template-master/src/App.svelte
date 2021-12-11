@@ -31,34 +31,52 @@
 	const calculate_budget = () => { //calculates what can fit in one's budget
 		var total_budget = document.getElementById('total').value;
 		//document.getElementById("output").innerHTML = total_budget; //test code
-		document.getElementById("output").innerHTML = budgets.length; //test code
+		//document.getElementById("output").innerHTML = budgets.length; //test code
 		sort_budget(1, budgets.length-1);
 		for(let i = 0; i < budgets.length; i++) {
 			if(budgets[i].weight > total_budget) {
 				delete_budget(budgets[i])
 			}
-		}
-		/*for(let j = 0; i < budgets.length; j++) {
-			document.getElementById("output").innerHTML = budgets[i].name + " ";
-		}*/
-	} //calculate_budget
-	function sort_budget(p, r) {//using quicksort algorithm for the running time and the storage costs
-		//document.getElementById("output").innerHTML = "inside sort "; //test code
-		let q = partition(p,r);
-		sort_budget(p, q-1);
-		sort_budget(q+1, r);
-	} //sort_budget
-	function partition(p, r) {//partition for the quicksort (sort_budget) algorithm
-		//document.getElementById("output").innerHTML = "inside partition "; //test code
-		let i = p-1;
-		for(let j = p; j < r-1; j++) {
-			if(budgets[j].val <= budgets[r].val && budgets[j].weight <= budgets[r].weight) {
-				i = i+1;
-				budgets[i].swap(budgets[j]);
+			else {
+				total_budget = total_budget - budgets[i].weight;
 			}
 		}
-		budgets[i+1].swap(budgets[r]);
-		return i+1;
+		for(let i = 0; i < budgets.length; i++) {
+			document.getElementById("output").innerHTML = budgets[i].name + " ";
+		}
+		document.getElementById("output").innerHTML = total_budget;
+	} //calculate_budget
+	function sort_budget(p, r) {
+		//using quicksort algorithm for the running time and the storage costs
+		//sorting by value from lowest to highest
+		//within each value, sorting by weight from lowest to highest
+		//document.getElementById("output").innerHTML = "inside sort "; //test code
+		if (p < r) {
+			let q = partition(p,r);
+			sort_budget(p, q-1);
+			sort_budget(q+1, r);
+		}
+	} //sort_budget
+	function partition(p, r) {
+		//partition for the quicksort (sort_budget) algorithm
+		//document.getElementById("output").innerHTML = "inside partition "; //test code
+		let index = p-1;
+		for(let j = p; j < r-1; j++) {
+			if(budgets[j].val <= budgets[r].val) {
+				if(budgets[j].val < budgets[r].val) {
+					index = index + 1;
+					budgets[index].swap(budgets[j]);
+				} else if (budgets[j].weight <= budgets[r].weight) {
+					//case that an item has the same value
+					//item must then have a smaller weight
+					index = index + 1;
+					budgets[index].swap(budgets[j]);
+				}
+			}
+		}
+		index = index + 1;
+		budgets[index].swap(budgets[r]);
+		return index;
 	}//partition
 </script>
 
