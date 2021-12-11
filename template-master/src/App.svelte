@@ -32,7 +32,7 @@
 		var total_budget = document.getElementById('total').value;
 		//document.getElementById("output").innerHTML = total_budget; //test code
 		document.getElementById("output").innerHTML = budgets.length; //test code
-		sort_budget(1, budgets.length);
+		sort_budget(1, budgets.length-1);
 		for(let i = 0; i < budgets.length; i++) {
 			if(budgets[i].weight > total_budget) {
 				delete_budget(budgets[i])
@@ -53,7 +53,7 @@
 		let i = p-1;
 		for(let j = p; j < r-1; j++) {
 			if(budgets[j].val <= budgets[r].val && budgets[j].weight <= budgets[r].weight) {
-				let i = i+1;
+				i = i+1;
 				budgets[i].swap(budgets[j]);
 			}
 		}
@@ -96,15 +96,15 @@
 	[id=input] {
 		grid-area: input;
 		padding: 10px;
-		border: 5px solid black;
-		border-radius: 5px;
+		/*border: 5px solid black;
+		border-radius: 5px;*/
 	}
 	[id=output] {
 		grid-area: output;
 		text-align: center;
-		border: 5px solid black;
+		/*border: 5px solid black;
+		border-radius: 5px;*/
 		padding: 10px;
-		border-radius: 5px;
 	}
 	footer {
 		grid-area: footer; 
