@@ -41,10 +41,7 @@
 				total_budget = total_budget - budgets[i].weight;
 			}
 		}
-		for(let i = 0; i < budgets.length; i++) {
-			document.getElementById("output").innerHTML = budgets[i].name + " ";
-		}
-		document.getElementById("output").innerHTML = total_budget;
+		document.getElementById("output").innerHTML = "To the left you'll see what Easy Budget calculated you can fit into your budget this period." + "<br/>" + "Your remaining budget is $" + total_budget;
 	} //calculate_budget
 	function sort_budget(p, r) {
 		//using quicksort algorithm for the running time and the storage costs
@@ -61,17 +58,15 @@
 		//partition for the quicksort (sort_budget) algorithm
 		//document.getElementById("output").innerHTML = "inside partition "; //test code
 		let index = p-1;
-		for(let j = p; j < r-1; j++) {
-			if(budgets[j].val <= budgets[r].val) {
-				if(budgets[j].val < budgets[r].val) {
-					index = index + 1;
-					budgets[index].swap(budgets[j]);
-				} else if (budgets[j].weight <= budgets[r].weight) {
-					//case that an item has the same value
-					//item must then have a smaller weight
-					index = index + 1;
-					budgets[index].swap(budgets[j]);
-				}
+		for(let j = p; j <= r-1; j++) {
+			if(budgets[j].val < budgets[r].val) {
+				index = index + 1;
+				budgets[index].swap(budgets[j]);
+			} else if (budgets[j].val == budgets[r].val && budgets[j].weight <= budgets[r].weight) {
+				//case that an item has the same value
+				//item must then have a smaller weight
+				index = index + 1;
+				budgets[index].swap(budgets[j]);
 			}
 		}
 		index = index + 1;
