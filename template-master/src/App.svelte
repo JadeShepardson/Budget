@@ -1,10 +1,21 @@
 <script>
 	class Budget {
-		constructor(name, value, weight) {
+		constructor(name, val, weight) {
 			this.name = name;
-			this.val = value;
+			this.val = val;
 			this.weight = weight;
 		} //budget constructor
+		swap(j) {
+			let v = this.val;
+			let w = this.weight;
+			let n = this.name;
+			this.val = j.val;
+			this.weight = j.weight;
+			this.name = j.name;
+			j.val = v;
+			j.weight = w;
+			j.name = n;
+		}//swap
 	}//budget class
 	let budgets = [
 		new Budget("Rent", 0, 0),
@@ -20,15 +31,48 @@
 	const calculate_budget = () => { //calculates what can fit in one's budget
 		var total_budget = document.getElementById('total').value;
 		//document.getElementById("output").innerHTML = total_budget; //test code
-		sort_budget
-
+		//document.getElementById("output").innerHTML = budgets.length; //test code
+		sort_budget(1, budgets.length-1);
+		for(let i = 0; i < budgets.length; i++) {
+			if(budgets[i].weight > total_budget) {
+				delete_budget(budgets[i])
+			}
+			else {
+				total_budget = total_budget - budgets[i].weight;
+			}
+		}
+		document.getElementById("output").innerHTML = "To the left you'll see what Easy Budget calculated you can fit into your budget this period." + "<br/>" + "Your remaining budget is $" + total_budget;
 	} //calculate_budget
-	const sort_budget = () => {
+	function sort_budget(p, r) {
 		//using quicksort algorithm for the running time and the storage costs
+		//sorting by value from lowest to highest
+		//within each value, sorting by weight from lowest to highest
+		//document.getElementById("output").innerHTML = "inside sort "; //test code
+		if (p < r) {
+			let q = partition(p,r);
+			sort_budget(p, q-1);
+			sort_budget(q+1, r);
+		}
 	} //sort_budget
-	const partition = () => {
+	function partition(p, r) {
 		//partition for the quicksort (sort_budget) algorithm
-	} //partition
+		//document.getElementById("output").innerHTML = "inside partition "; //test code
+		let index = p-1;
+		for(let j = p; j <= r-1; j++) {
+			if(budgets[j].val < budgets[r].val) {
+				index = index + 1;
+				budgets[index].swap(budgets[j]);
+			} else if (budgets[j].val == budgets[r].val && budgets[j].weight <= budgets[r].weight) {
+				//case that an item has the same value
+				//item must then have a smaller weight
+				index = index + 1;
+				budgets[index].swap(budgets[j]);
+			}
+		}
+		index = index + 1;
+		budgets[index].swap(budgets[r]);
+		return index;
+	}//partition
 </script>
 
 <style>
@@ -90,7 +134,7 @@
 		width: 500px;
 		display: grid;
 		grid-template:
-			"item value weight del_button"
+			"item vals weight del_button"
 			/2fr 1fr 1fr auto
 		;
 		column-gap: 10px;
@@ -98,8 +142,8 @@
 	[id=item] {
 		grid-area: item;
 	}
-	[id=value] {
-		grid-area: value;
+	[id=vals] {
+		grid-area: vals;
 	}
 	[id=weight] {
 		grid-area: weight;
@@ -139,7 +183,7 @@
 		{#each budgets as budget}
 			<budget-item>
 				<div id="item"><span>Item:</span><input type = "text" bind:value={budget.name}/></div>
-				<div id="value"><span>Value: </span><input type = "number" min="0" max="10" bind:value={budget.val}/></div>
+				<div id="vals"><span>Value: </span><input type = "number" min="0" max="10" bind:value={budget.val}/></div>
 				<div id="weight"><span>Weight: </span><input type = "number" min="0" bind:value={budget.weight}/></div>
 				<div id="del_button"><button on:click={() => delete_budget(budget)}>X</button></div>
 			</budget-item>
