@@ -16,6 +16,9 @@
 			j.weight = w;
 			j.name = n;
 		}//swap
+		compareTo(j) {
+			return this.val < j.val || (this.val == j.val && this.weight <= j.weight);
+		}
 	}//budget class
 	let budgets = [
 		new Budget("Rent", 0, 0),
@@ -59,12 +62,7 @@
 		//document.getElementById("output").innerHTML = "inside partition "; //test code
 		let index = p-1;
 		for(let j = p; j <= r-1; j++) {
-			if(budgets[j].val < budgets[r].val) {
-				index = index + 1;
-				budgets[index].swap(budgets[j]);
-			} else if (budgets[j].val == budgets[r].val && budgets[j].weight <= budgets[r].weight) {
-				//case that an item has the same value
-				//item must then have a smaller weight
+			if(budgets[j].compareTo(budgets[r])) {
 				index = index + 1;
 				budgets[index].swap(budgets[j]);
 			}
