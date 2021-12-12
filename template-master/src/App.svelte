@@ -5,20 +5,20 @@
 			this.val = val;
 			this.weight = weight;
 		} //budget constructor
-		swap(j) {
+		swap(other) {
 			let v = this.val;
 			let w = this.weight;
 			let n = this.name;
-			this.val = j.val;
-			this.weight = j.weight;
-			this.name = j.name;
-			j.val = v;
-			j.weight = w;
-			j.name = n;
+			this.val = other.val;
+			this.weight = other.weight;
+			this.name = other.name;
+			other.val = v;
+			other.weight = w;
+			other.name = n;
 		}//swap
-		compareTo(j) {
-			return this.val < j.val || (this.val == j.val && this.weight <= j.weight);
-		}
+		compareTo(other) {
+			return this.val < other.val || (this.val == other.val && this.weight <= other.weight);
+		}//compareTo
 	}//budget class
 	let budgets = [
 		new Budget("Rent", 0, 0),
@@ -46,29 +46,29 @@
 		}
 		document.getElementById("output").innerHTML = "To the left you'll see what Easy Budget calculated you can fit into your budget this period." + "<br/>" + "Your remaining budget is $" + total_budget;
 	} //calculate_budget
-	function sort_budget(p, r) {
+	function sort_budget(left, right) {
 		//using quicksort algorithm for the running time and the storage costs
 		//sorting by value from lowest to highest
 		//within each value, sorting by weight from lowest to highest
 		//document.getElementById("output").innerHTML = "inside sort "; //test code
-		if (p < r) {
-			let q = partition(p,r);
-			sort_budget(p, q-1);
-			sort_budget(q+1, r);
+		if (left < right) {
+			let part = partition(left, right);
+			sort_budget(left, part-1);
+			sort_budget(part+1, right);
 		}
 	} //sort_budget
-	function partition(p, r) {
+	function partition(left, right) {
 		//partition for the quicksort (sort_budget) algorithm
 		//document.getElementById("output").innerHTML = "inside partition "; //test code
-		let index = p-1;
-		for(let j = p; j <= r-1; j++) {
-			if(budgets[j].compareTo(budgets[r])) {
+		let index = left-1;
+		for(let j = left; j <= right-1; j++) {
+			if(budgets[j].compareTo(budgets[right])) {
 				index = index + 1;
 				budgets[index].swap(budgets[j]);
 			}
 		}
 		index = index + 1;
-		budgets[index].swap(budgets[r]);
+		budgets[index].swap(budgets[right]);
 		return index;
 	}//partition
 </script>
@@ -107,14 +107,14 @@
 	[id=input] {
 		grid-area: input;
 		padding: 10px;
-		/*border: 5px solid black;
-		border-radius: 5px;*/
+		/*border: 5px solid black; /*test code
+		border-radius: 5px;*/ /*test code*/
 	}
 	[id=output] {
 		grid-area: output;
 		text-align: center;
-		/*border: 5px solid black;
-		border-radius: 5px;*/
+		/*border: 5px solid black; /*test code
+		border-radius: 5px;*/ /*test code*/
 		padding: 10px;
 	}
 	footer {
