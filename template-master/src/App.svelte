@@ -16,8 +16,18 @@
 			other.weight = w;
 			other.name = n;
 		}//swap
+
 		compareTo(other) {
+			if (this.val < other.val || (this.val == other.val && this.weight <= other.weight)) {
+			   return-1;
+			} else if (this.val == other.val && this.weight == other.weight) {
+				return 0;
+			} else {
+				return 1;
+			}
+			/*			
 			return this.val < other.val || (this.val == other.val && this.weight <= other.weight);
+			*/
 		}//compareTo
 	}//budget class
 	let budgets = [
@@ -39,9 +49,10 @@
 		for(let i = 0; i < budgets.length; i++) {
 			if(budgets[i].weight > total_budget) {
 				delete_budget(budgets[i])
+				i--;
 			}
 			else {
-				total_budget = total_budget - budgets[i].weight;
+				total_budget -= budgets[i].weight;
 			}
 		}
 		document.getElementById("output").innerHTML = "To the left you'll see what Easy Budget calculated you can fit into your budget this period." + "<br/>" + "Your remaining budget is $" + total_budget;
@@ -52,9 +63,9 @@
 		//within each value, sorting by weight from lowest to highest
 		//document.getElementById("output").innerHTML = "inside sort "; //test code
 		if (left < right) {
-			let part = partition(left, right);
-			sort_budget(left, part-1);
-			sort_budget(part+1, right);
+			let mid = partition(left,right);
+			sort_budget(left, mid-1);
+			sort_budget(mid+1, right);
 		}
 	} //sort_budget
 	function partition(left, right) {
@@ -62,7 +73,11 @@
 		//document.getElementById("output").innerHTML = "inside partition "; //test code
 		let index = left-1;
 		for(let j = left; j <= right-1; j++) {
-			if(budgets[j].compareTo(budgets[right])) {
+			/*if(budgets[j].compareTo(budgets[r])) {
+				index = index + 1;
+				budgets[index].swap(budgets[j]);
+			} */
+			if(budgets[j].compareTo(budgets[right]) <= 0) {
 				index = index + 1;
 				budgets[index].swap(budgets[j]);
 			}
@@ -107,14 +122,14 @@
 	[id=input] {
 		grid-area: input;
 		padding: 10px;
-		/*border: 5px solid black; /*test code
-		border-radius: 5px;*/ /*test code*/
+		/*border: 5px solid black;
+		border-radius: 5px;*/
 	}
 	[id=output] {
 		grid-area: output;
 		text-align: center;
-		/*border: 5px solid black; /*test code
-		border-radius: 5px;*/ /*test code*/
+		/*border: 5px solid black;
+		border-radius: 5px;*/
 		padding: 10px;
 	}
 	footer {
