@@ -16,9 +16,23 @@
 			j.weight = w;
 			j.name = n;
 		}//swap
+<<<<<<< Updated upstream
 		compareTo(j) {
 			return this.val < j.val || (this.val == j.val && this.weight <= j.weight);
 		}
+=======
+		compareTo(other) {
+			/*if (this.val < other.val || (this.val == other.val && this.weight <= other.weight)) {
+			   return-1;
+			} else if (this.val == other.val && this.weight == other.weight) {
+				return 0;
+			} else {
+				return 1;
+			}
+			*/			
+			return this.val < other.val || (this.val == other.val && this.weight <= other.weight);
+		}//compareTo
+>>>>>>> Stashed changes
 	}//budget class
 	let budgets = [
 		new Budget("Rent", 0, 0),
@@ -66,6 +80,11 @@
 				index = index + 1;
 				budgets[index].swap(budgets[j]);
 			}
+			/* if(budgets[j].compareTo(budgets[right]) <= 0) {
+				index = index + 1;
+				budgets[index].swap(budgets[j]);
+			}
+			*/
 		}
 		index = index + 1;
 		budgets[index].swap(budgets[r]);
