@@ -16,7 +16,6 @@
 			other.weight = w;
 			other.name = n;
 		}//swap
-
 		compareTo(other) {
 			if (this.val < other.val || (this.val == other.val && this.weight <= other.weight)) {
 			   return -1;
