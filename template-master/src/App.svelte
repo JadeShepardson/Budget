@@ -19,7 +19,7 @@
 
 		compareTo(other) {
 			if (this.val < other.val || (this.val == other.val && this.weight <= other.weight)) {
-			   return-1;
+			   return -1;
 			} else if (this.val == other.val && this.weight == other.weight) {
 				return 0;
 			} else {
